@@ -12,12 +12,33 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic
+  -fpermissive 
+  -Wno-unused-variable 
+  -Wno-unused-parameter 
+  -Wno-unused-function
+  -Wno-conversion-null
+  -Wno-sign-compare
+  -Wno-pointer-arith
+  -Wno-pedantic
+  -Wno-reorder
+  -pthread 
+  -Wno-delete-non-virtual-dtor 
+  -Wno-switch 
+  -Wno-format 
+  -Wno-deprecated-copy
+  -Wno-class-memaccess
+  -Wno-implicit-fallthrough
+  -Wno-catch-value
+  -Wno-unused-but-set-variable  
+  )
 endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 install(
   DIRECTORY config launch rviz src urdf world
@@ -35,4 +56,24 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+
+function(advanced_custom_executable target)
+  add_executable(${target}
+  src/${target}.cpp
+
+  )
+  
+  ament_target_dependencies(${target}
+    "rclcpp"
+    "geometry_msgs"
+  )
+  install(TARGETS ${target}
+  DESTINATION lib/${PROJECT_NAME})
+endfunction()
+
+advanced_custom_executable(robot)
+
+target_link_libraries(robot pthread)
+
 ament_package()
+
