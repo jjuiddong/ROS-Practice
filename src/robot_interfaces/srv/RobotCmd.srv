@@ -1,0 +1,24 @@
+
+int32 type
+string name
+uint16[] ui0
+uint16[] ui1
+int32[] i0
+float32[] f0
+string[] s0
+char[] c0
+
+
+---
+
+
+int32 type
+string name
+uint16[] ui0
+uint16[] ui1
+int32[] i0
+float32[] f0
+string[] s0
+char[] c0
+int32 result
+

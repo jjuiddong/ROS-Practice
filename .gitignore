@@ -355,4 +355,6 @@ log/
 build/
 install/
 
+errlog.txt
+log.txt
 
