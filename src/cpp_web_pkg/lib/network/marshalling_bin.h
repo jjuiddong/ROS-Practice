@@ -18,8 +18,8 @@ namespace network2
 		cPacket& operator<<(cPacket& packet, const unsigned short& rhs);
 		cPacket& operator<<(cPacket& packet, const int& rhs);
 		cPacket& operator<<(cPacket& packet, const unsigned int& rhs);
-		cPacket& operator<<(cPacket& packet, const long& rhs);
-		cPacket& operator<<(cPacket& packet, const unsigned long& rhs);
+		// cPacket& operator<<(cPacket& packet, const long& rhs);
+		// cPacket& operator<<(cPacket& packet, const unsigned long& rhs);
 		cPacket& operator<<(cPacket& packet, const int64& rhs);
 		cPacket& operator<<(cPacket& packet, const uint64& rhs);
 		cPacket& operator<<(cPacket& packet, const float& rhs);
@@ -44,8 +44,8 @@ namespace network2
 		cPacket& operator>>(cPacket& packet, OUT unsigned short& rhs);
 		cPacket& operator>>(cPacket& packet, OUT int& rhs);
 		cPacket& operator>>(cPacket& packet, OUT unsigned int& rhs);
-		cPacket& operator>>(cPacket& packet, OUT long& rhs);
-		cPacket& operator>>(cPacket& packet, OUT unsigned long& rhs);
+		// cPacket& operator>>(cPacket& packet, OUT long& rhs);
+		// cPacket& operator>>(cPacket& packet, OUT unsigned long& rhs);
 		cPacket& operator>>(cPacket& packet, OUT int64& rhs);
 		cPacket& operator>>(cPacket& packet, OUT uint64& rhs);
 		cPacket& operator>>(cPacket& packet, OUT float& rhs);
@@ -114,17 +114,17 @@ namespace network2
 		return packet;
 	}
 
-	inline cPacket& marshalling::operator<<(cPacket& packet, const long& rhs)
-	{
-		packet.Append(rhs);
-		return packet;
-	}
+	// inline cPacket& marshalling::operator<<(cPacket& packet, const long& rhs)
+	// {
+	// 	packet.Append(rhs);
+	// 	return packet;
+	// }
 
-	inline cPacket& marshalling::operator<<(cPacket& packet, const unsigned long& rhs)
-	{
-		packet.Append(rhs);
-		return packet;
-	}
+	// inline cPacket& marshalling::operator<<(cPacket& packet, const unsigned long& rhs)
+	// {
+	// 	packet.Append(rhs);
+	// 	return packet;
+	// }
 
 	inline cPacket& marshalling::operator<<(cPacket& packet, const unsigned int& rhs)
 	{
@@ -344,17 +344,17 @@ namespace network2
 		return packet;
 	}
 
-	inline cPacket& marshalling::operator>>(cPacket& packet, OUT long& rhs)
-	{
-		packet.GetData(rhs);
-		return packet;
-	}
+	// inline cPacket& marshalling::operator>>(cPacket& packet, OUT long& rhs)
+	// {
+	// 	packet.GetData(rhs);
+	// 	return packet;
+	// }
 
-	inline cPacket& marshalling::operator>>(cPacket& packet, OUT unsigned long& rhs)
-	{
-		packet.GetData(rhs);
-		return packet;
-	}
+	// inline cPacket& marshalling::operator>>(cPacket& packet, OUT unsigned long& rhs)
+	// {
+	// 	packet.GetData(rhs);
+	// 	return packet;
+	// }
 
 	inline cPacket& marshalling::operator>>(cPacket& packet, OUT unsigned int& rhs)
 	{

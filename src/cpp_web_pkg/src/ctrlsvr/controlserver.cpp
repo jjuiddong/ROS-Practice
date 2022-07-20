@@ -69,7 +69,7 @@ bool cControlServer::Update(const float deltaSeconds)
     {
     case eState::TryConnect:
         m_connTime += deltaSeconds;
-        if (m_connTime > 10.f)
+        if (m_connTime > 5.f)
         {
             cout << "fail connection, time over\n";
             m_state = eState::WaitCluster; // retry later
@@ -138,6 +138,15 @@ bool cControlServer::Update(const float deltaSeconds)
 }
 
 
+// retry connect web relay server
+void cControlServer::RetyConnectServer()
+{
+    m_state = eState::WaitCluster; // retry later
+    m_client.Close();
+    m_robots.clear();
+}
+
+
 void cControlServer::Clear()
 {
     m_client.Close();
@@ -198,6 +207,14 @@ bool cControlServer::Welcome(webrelay::Welcome_Packet &packet)
 bool cControlServer::AckLogin(webrelay::AckLogin_Packet &packet)
 {
     std::cout << "AckLogin " << packet.result << std::endl;
+    if (1 != packet.result)
+    {
+        // error occurred, reconnect web relay server
+        std::cout << "error occurred, reconnect web relay server" << std::endl;
+        m_state = eState::WaitCluster; // retry later
+        m_client.Close();
+    }
+
     return true;
 }
 

@@ -36,6 +36,7 @@ public:
 
     bool Init(const sInitParam &param);
     bool Update(const float deltaSeconds);
+    void RetyConnectServer();
     void Clear();
 
 

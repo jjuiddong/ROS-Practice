@@ -3,6 +3,7 @@
         "*.repos": "yaml",
         "*.world": "xml",
         "*.xacro": "xml",
-        "functional": "cpp"
+        "functional": "cpp",
+        "chrono": "cpp"
     }
 }

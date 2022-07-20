@@ -37,13 +37,14 @@ protected:
     void client_response_callback(SharedFuture future);
     void server_response_callback(std::shared_ptr<RobotCmd::Request> request
         , std::shared_ptr<RobotCmd::Response> response);
-    void sub_callback(const Odom::SharedPtr msg);
+    void odom_callback(const Odom::SharedPtr msg);
 
 
 public:
     enum class eState {
         None,
         Initialize,
+        ConnectService,
         Login, // try login
         Ready, // ready to work
         Move,

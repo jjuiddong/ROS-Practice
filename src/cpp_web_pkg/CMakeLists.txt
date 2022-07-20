@@ -14,6 +14,7 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic 
   -fpermissive 
+  -Wno-unused-value
   -Wno-unused-variable 
   -Wno-unused-parameter 
   -Wno-unused-function
@@ -45,10 +46,13 @@ find_package(gazebo_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(robot_interfaces REQUIRED)
 find_package(example_interfaces REQUIRED)
+find_package(OpenCV REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS}) 
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -67,6 +71,7 @@ install(DIRECTORY
 )
 
 function(advanced_custom_executable target)
+
   add_executable(${target}_node
   src/${target}.cpp
 
@@ -136,6 +141,7 @@ function(advanced_custom_executable target)
     "geometry_msgs"
     "std_msgs"
     "nav_msgs"
+    "sensor_msgs"
     "robot_interfaces")
   install(TARGETS ${target}_node
   DESTINATION lib/${PROJECT_NAME})
@@ -144,7 +150,11 @@ endfunction()
 advanced_custom_executable(servermain)
 advanced_custom_executable(robotmain)
 
-target_link_libraries(servermain_node pthread PocoNet PocoUtil PocoFoundation ${Boost_LIBRARIES})
-target_link_libraries(robotmain_node pthread PocoNet PocoUtil PocoFoundation)
+target_link_libraries(servermain_node pthread PocoNet PocoUtil PocoFoundation ${Boost_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(robotmain_node pthread PocoNet PocoUtil PocoFoundation ${Boost_LIBRARIES} ${OpenCV_LIBS})
+
+target_precompile_headers(servermain_node PUBLIC ./src/stdafx.h)
+target_precompile_headers(robotmain_node PUBLIC ./src/stdafx.h)
+
 
 ament_package()

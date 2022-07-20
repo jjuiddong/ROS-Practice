@@ -24,8 +24,8 @@ namespace network2
 		cPacket& operator<<(cPacket &packet, const unsigned short rhs);
 		cPacket& operator<<(cPacket &packet, const int rhs);
 		cPacket& operator<<(cPacket &packet, const unsigned int rhs);
-		cPacket& operator<<(cPacket& packet, const long rhs);
-		cPacket& operator<<(cPacket& packet, const unsigned long rhs);
+		// cPacket& operator<<(cPacket& packet, const long rhs);
+		// cPacket& operator<<(cPacket& packet, const unsigned long rhs);
 		cPacket& operator<<(cPacket &packet, const float rhs);
 		cPacket& operator<<(cPacket &packet, const double rhs);
 		cPacket& operator<<(cPacket &packet, const int64 rhs);
@@ -42,8 +42,8 @@ namespace network2
 		cPacket& operator>>(cPacket &packet, OUT unsigned short& rhs);
 		cPacket& operator>>(cPacket &packet, OUT int& rhs);
 		cPacket& operator>>(cPacket &packet, OUT unsigned int& rhs);
-		cPacket& operator>>(cPacket& packet, OUT long& rhs);
-		cPacket& operator>>(cPacket& packet, OUT unsigned long& rhs);
+		// cPacket& operator>>(cPacket& packet, OUT long& rhs);
+		// cPacket& operator>>(cPacket& packet, OUT unsigned long& rhs);
 		cPacket& operator>>(cPacket &packet, OUT float& rhs);
 		cPacket& operator>>(cPacket &packet, OUT double& rhs);
 		cPacket& operator>>(cPacket &packet, OUT int64& rhs);
@@ -111,15 +111,15 @@ namespace network2
 		SPRINTF_FORMAT("%d", rhs);
 	}
 
-	inline cPacket& marshalling_ascii::operator<<(cPacket &packet, const long rhs)
-	{
-		SPRINTF_FORMAT("%d", rhs);
-	}
+	// inline cPacket& marshalling_ascii::operator<<(cPacket &packet, const long rhs)
+	// {
+	// 	SPRINTF_FORMAT("%d", rhs);
+	// }
 
-	inline cPacket& marshalling_ascii::operator<<(cPacket &packet, const unsigned long rhs)
-	{
-		SPRINTF_FORMAT("%d", rhs);
-	}
+	// inline cPacket& marshalling_ascii::operator<<(cPacket &packet, const unsigned long rhs)
+	// {
+	// 	SPRINTF_FORMAT("%d", rhs);
+	// }
 
 	inline cPacket& marshalling_ascii::operator<<(cPacket &packet, const float rhs)
 	{
@@ -215,15 +215,15 @@ namespace network2
 		GETASCII_FORMAT(rhs = (unsigned int)strtoul(buff, NULL, 0));
 	}
 
-	inline cPacket& marshalling_ascii::operator>>(cPacket &packet, OUT long& rhs)
-	{
-		GETASCII_FORMAT(rhs = atoi(buff));
-	}
+	// inline cPacket& marshalling_ascii::operator>>(cPacket &packet, OUT long& rhs)
+	// {
+	// 	GETASCII_FORMAT(rhs = atoi(buff));
+	// }
 
-	inline cPacket& marshalling_ascii::operator>>(cPacket &packet, OUT unsigned long& rhs)
-	{
-		GETASCII_FORMAT(rhs = (unsigned int)strtoul(buff, NULL, 0));
-	}
+	// inline cPacket& marshalling_ascii::operator>>(cPacket &packet, OUT unsigned long& rhs)
+	// {
+	// 	GETASCII_FORMAT(rhs = (unsigned int)strtoul(buff, NULL, 0));
+	// }
 
 	inline cPacket& marshalling_ascii::operator>>(cPacket &packet, OUT float& rhs)
 	{

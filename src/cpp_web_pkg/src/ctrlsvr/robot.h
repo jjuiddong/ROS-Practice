@@ -3,11 +3,16 @@
 // ros robot agent class
 //  - connect cluster server, send/recv cloud packet
 //
+#include "rclcpp/rclcpp.hpp"
 #include "robot_interfaces/srv/robot_cmd.hpp"
 #include "robot_interfaces/msg/rtrs.hpp"
-#include "rclcpp/rclcpp.hpp"
+#include "sensor_msgs/msg/laser_scan.hpp"
+#include "sensor_msgs/msg/image.hpp"
+
 using RobotCmd = robot_interfaces::srv::RobotCmd;
 using Rtrs = robot_interfaces::msg::Rtrs;
+using LaserScan = sensor_msgs::msg::LaserScan;
+using Image = sensor_msgs::msg::Image;
 
 
 class cControlServer;
@@ -27,7 +32,9 @@ public:
 
 
 protected:
-    void sub_callback(const Rtrs::SharedPtr msg);
+    void rtrs_callback(const Rtrs::SharedPtr msg);
+    void scan_callback(const LaserScan::SharedPtr msg);
+    void image_callback(const Image::SharedPtr msg);
 
     // robot protocol handler
 	virtual bool Welcome(robot::Welcome_Packet &packet) override;
@@ -65,4 +72,9 @@ public:
     rclcpp::Client<RobotCmd>::SharedPtr m_client; // request robot command
     std::shared_ptr<RobotCmd::Request> m_request;
     rclcpp::Subscription<Rtrs>::SharedPtr m_rtrs_sub; // rtrs subscriber    
+    rclcpp::Subscription<LaserScan>::SharedPtr m_scan_sub; // Scan subscriber
+    rclcpp::Subscription<Image>::SharedPtr m_image_sub; // camera image subscriber
+
+    rclcpp::Time m_sendImageTime; // seconds
+    unsigned char *m_imgBuffer;
 };

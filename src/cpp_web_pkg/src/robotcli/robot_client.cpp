@@ -41,7 +41,7 @@ bool cRobotClient::Init()
     m_twist_pub = create_publisher<Twist>("skidbot/cmd_vel", 10);
     m_rtrs_pub = create_publisher<Rtrs>(m_name + "/rtrs", 10);
     m_pose_sub = create_subscription<Odom>(
-        "/odom", 10, std::bind(&cRobotClient::sub_callback, this, std::placeholders::_1));
+        "/odom", 10, std::bind(&cRobotClient::odom_callback, this, std::placeholders::_1));
 
     m_rtrs_msg.name = m_name;
     m_rtrs_msg.posx = 0.f;
@@ -53,13 +53,9 @@ bool cRobotClient::Init()
     m_rtrs_msg.orientw = 0.f;
     m_rtrs_msg.time = 0.0;
 
-    while (!m_client->wait_for_service(1s))
-        RCLCPP_INFO(get_logger(), "service not available, waiting again...");
+    RCLCPP_INFO(get_logger(), "service not available, waiting again...");    
 
-    RCLCPP_INFO(get_logger(), "service available, waiting serice call");
-
-    m_state = eState::Login;
-    ReqLogin();
+    m_state = eState::ConnectService;
     return true;
 }
 
@@ -69,6 +65,19 @@ bool cRobotClient::Update(const float deltaSeconds)
 {
     switch (m_state)
     {
+    case eState::ConnectService:
+        if (m_client->wait_for_service(1s))
+        {
+            RCLCPP_INFO(get_logger(), "service available, waiting serice call");            
+            m_state = eState::Login;
+            ReqLogin();
+        }
+        else
+        {
+            RCLCPP_INFO(get_logger(), "service not available, waiting again...");            
+        }
+        break;
+
     case eState::Login:
         break;
     case eState::Ready:
@@ -178,6 +187,27 @@ void cRobotClient::server_response_callback(std::shared_ptr<RobotCmd::Request> r
     const robot::eCommandType type = (robot::eCommandType)request.get()->type;
     switch (type)
     {
+    case robot::eCommandType::AckLogin:
+    {
+        if (request.get()->ui0.size() < 1)
+        {
+            response.get()->result = 0;
+            break; // error
+        }
+
+        // error occurred, clear and reconnect
+        if (1 != request.get()->ui0[0])
+        {
+            m_state = eState::ConnectService;
+            response.get()->result = 1;
+        }
+        else
+        {
+            response.get()->result = 0;
+        }
+    }
+    break;
+
     case robot::eCommandType::ReqRemoteMove:
     {
         response.get()->type = (int)robot::eCommandType::AckRemoteMove;
@@ -246,8 +276,8 @@ void cRobotClient::client_response_callback(SharedFuture result)
 }
 
 
-// robot localization info
-void cRobotClient::sub_callback(const Odom::SharedPtr msg)
+// robot odometry subscriber
+void cRobotClient::odom_callback(const Odom::SharedPtr msg)
 {
     // RCLCPP_INFO(get_logger(), "x=%f, y=%f, z=%f"
     //     , msg->pose.pose.position.x, msg->pose.pose.position.y, msg->pose.pose.position.z);

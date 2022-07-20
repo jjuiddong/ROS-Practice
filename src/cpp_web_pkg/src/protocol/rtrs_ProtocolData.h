@@ -24,6 +24,48 @@ using namespace marshalling;
 		double time;
 	};
 
+	struct LaserScan_Packet {
+		cProtocolDispatcher *pdispatcher;
+		netid senderId;
+		string robotName;
+		float angle_min;
+		float angle_max;
+		float angle_increment;
+		float time_increment;
+		float scan_time;
+		float range_min;
+		float range_max;
+		vector<float> ranges;
+		vector<float> intensities;
+	};
+
+	struct LaserScanStream_Packet {
+		cProtocolDispatcher *pdispatcher;
+		netid senderId;
+		string robotName;
+		uint total;
+		uint index;
+		vector<float> stream;
+	};
+
+	struct CameraInfo_Packet {
+		cProtocolDispatcher *pdispatcher;
+		netid senderId;
+		string robotName;
+		uint width;
+		uint height;
+		string encoding;
+	};
+
+	struct CameraStream_Packet {
+		cProtocolDispatcher *pdispatcher;
+		netid senderId;
+		string robotName;
+		uint total;
+		uint index;
+		vector<char> stream;
+	};
+
 
 
 }

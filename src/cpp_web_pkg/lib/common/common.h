@@ -5,6 +5,31 @@
 #pragma once
 
 
+#include <iostream>
+#include <string>
+#include <map>
+#include <vector>
+#include <list>
+#include <deque>
+#include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <set>
+#include <queue>
+#include <thread>
+#include <iterator>
+#include <stdarg.h>
+#include <cstring>
+#include <assert.h>
+#include <atomic>
+#include <semaphore.h> // POSIX semaphore
+
+#include <boost/functional/hash.hpp>   //boost::hash
+#include <boost/pool/pool.hpp>
+#include <boost/pool/object_pool.hpp>
+#include "opencv2/opencv.hpp"
+
+
 // 매크로 정의
 #ifndef SAFE_DELETE
 	#define SAFE_DELETE(p) {if (p) { delete p; p=NULL;} }
@@ -70,13 +95,13 @@ typedef unsigned int hashcode;
 // #ifndef int64
 // 	typedef __int64 int64;
 // #endif
-#ifndef int64
-	typedef __int64 int64;
-#endif
+// #ifndef int64
+// 	typedef __int64 int64;
+// #endif
 
-#ifndef uint64
-	typedef unsigned __int64 uint64;
-#endif 
+// #ifndef uint64
+// 	typedef unsigned __int64 uint64;
+// #endif 
 
 #ifndef WPARAM
 	typedef int WPARAM;
@@ -153,28 +178,6 @@ typedef unsigned int hashcode;
 		sprintf(buffer, format, ##__VA_ARGS__)
 #endif
 
-#include <iostream>
-#include <string>
-#include <map>
-#include <vector>
-#include <list>
-#include <deque>
-#include <algorithm>
-#include <fstream>
-#include <sstream>
-#include <set>
-#include <queue>
-#include <thread>
-#include <iterator>
-#include <stdarg.h>
-#include <cstring>
-#include <assert.h>
-#include <atomic>
-#include <semaphore.h> // POSIX semaphore
-
-#include <boost/functional/hash.hpp>   //boost::hash
-#include <boost/pool/pool.hpp>
-#include <boost/pool/object_pool.hpp>
 
 using std::string;
 using std::wstring;

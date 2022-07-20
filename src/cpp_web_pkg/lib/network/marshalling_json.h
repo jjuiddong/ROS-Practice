@@ -23,8 +23,8 @@ namespace network2
 		ptree& put(ptree &props, const char *typeName, const unsigned short rhs);
 		ptree& put(ptree &props, const char *typeName, const int rhs);
 		ptree& put(ptree &props, const char *typeName, const unsigned int rhs);
-		ptree& put(ptree &props, const char *typeName, const long rhs);
-		ptree& put(ptree &props, const char *typeName, const unsigned long rhs);
+		// ptree& put(ptree &props, const char *typeName, const long rhs);
+		// ptree& put(ptree &props, const char *typeName, const unsigned long rhs);
 		ptree& put(ptree &props, const char *typeName, const float rhs);
 		ptree& put(ptree &props, const char *typeName, const double rhs);
 		ptree& put(ptree &props, const char *typeName, const int64 rhs);
@@ -46,8 +46,8 @@ namespace network2
 		ptree& get(ptree &props, const char *typeName, OUT unsigned short &rhs);
 		ptree& get(ptree &props, const char *typeName, OUT int &rhs);
 		ptree& get(ptree &props, const char *typeName, OUT unsigned int &rhs);
-		ptree& get(ptree &props, const char *typeName, OUT long &rhs);
-		ptree& get(ptree &props, const char *typeName, OUT unsigned long &rhs);
+		// ptree& get(ptree &props, const char *typeName, OUT long &rhs);
+		// ptree& get(ptree &props, const char *typeName, OUT unsigned long &rhs);
 		ptree& get(ptree &props, const char *typeName, OUT float &rhs);
 		ptree& get(ptree &props, const char *typeName, OUT double &rhs);
 		ptree& get(ptree &props, const char *typeName, OUT int64 &rhs);
@@ -94,12 +94,12 @@ namespace network2
 		inline ptree& put(ptree &props, const char *typeName, const unsigned int rhs) {
 			return props.put(typeName, rhs);
 		}
-		inline ptree& put(ptree &props, const char *typeName, const long rhs) {
-			return props.put(typeName, rhs);
-		}
-		inline ptree& put(ptree &props, const char *typeName, const unsigned long rhs) {
-			return props.put(typeName, rhs);
-		}
+		// inline ptree& put(ptree &props, const char *typeName, const long rhs) {
+		// 	return props.put(typeName, rhs);
+		// }
+		// inline ptree& put(ptree &props, const char *typeName, const unsigned long rhs) {
+		// 	return props.put(typeName, rhs);
+		// }
 		inline ptree& put(ptree &props, const char *typeName, const float rhs) {
 			return props.put(typeName, rhs);
 		}
@@ -186,14 +186,14 @@ namespace network2
 			out = props.get<unsigned int>(typeName, 0);
 			return props;
 		}
-		inline ptree& get(ptree &props, const char *typeName, OUT long &out) {
-			out = props.get<long>(typeName, 0);
-			return props;
-		}
-		inline ptree& get(ptree &props, const char *typeName, OUT unsigned long &out) {
-			out = props.get<unsigned long>(typeName, 0);
-			return props;
-		}
+		// inline ptree& get(ptree &props, const char *typeName, OUT long &out) {
+		// 	out = props.get<long>(typeName, 0);
+		// 	return props;
+		// }
+		// inline ptree& get(ptree &props, const char *typeName, OUT unsigned long &out) {
+		// 	out = props.get<unsigned long>(typeName, 0);
+		// 	return props;
+		// }
 		inline ptree& get(ptree &props, const char *typeName, OUT float &out) {
 			out = props.get<float>(typeName, 0.f);
 			return props;
